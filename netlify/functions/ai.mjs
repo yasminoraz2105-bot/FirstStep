@@ -12,7 +12,8 @@ export default async (req) => {
     headers: { "x-api-key": key, "anthropic-version": "2023-06-01", "content-type": "application/json" },
     body: JSON.stringify({
       model: process.env.ANTHROPIC_MODEL || "claude-haiku-5-5",
-      max_tokens: 700,
+      max_tokens: 4096,
+      output_config: { effort: "low" },
       messages: [{ role: "user", content: prompt }]
     })
   });
