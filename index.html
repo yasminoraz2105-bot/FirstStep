@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FirstStep – first job after MNU</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#16204A;--ink2:#4A5376;--mute:#8A90A8;--line:#E3E6EF;
+  --bg:#EEF0F6;--card:#FFFFFF;--navy:#1C2C74;--navy2:#2B3F9E;--sun:#FFC43D;--sunInk:#5A4100;
+  --ok:#1F8A5B;--okbg:#E4F4EC;--no:#B3372F;--nobg:#FBE8E6;--wait:#6B5BD2;--waitbg:#EEEBFC;
+  --chip:#F3F4F9;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ink:#EEF0FA;--ink2:#B6BCD6;--mute:#8088A6;--line:#2A3150;--bg:#0E1330;--card:#171D40;--navy:#8FA2FF;--navy2:#A9B8FF;
+  --sun:#FFC43D;--sunInk:#3A2A00;--okbg:#153828;--ok:#6FD3A3;--nobg:#3A1A18;--no:#F29A92;--waitbg:#262054;--wait:#B6ABFF;--chip:#20274F}}
+:root[data-theme="dark"]{--ink:#EEF0FA;--ink2:#B6BCD6;--mute:#8088A6;--line:#2A3150;--bg:#0E1330;--card:#171D40;--navy:#8FA2FF;--navy2:#A9B8FF;
+  --sun:#FFC43D;--sunInk:#3A2A00;--okbg:#153828;--ok:#6FD3A3;--nobg:#3A1A18;--no:#F29A92;--waitbg:#262054;--wait:#B6ABFF;--chip:#20274F}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"Onest",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:15px;line-height:1.45;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:2px solid var(--navy2);outline-offset:2px}
+.stage{min-height:100%;display:flex;justify-content:center;align-items:flex-start;padding:24px 12px}
+.phone{width:100%;max-width:400px;height:min(820px,calc(100vh - 48px));background:var(--bg);border-radius:34px;border:1px solid var(--line);overflow:hidden;display:flex;flex-direction:column;position:relative}
+@media (max-width:480px){.stage{padding:0;height:100%}.phone{max-width:none;height:100%;border-radius:0;border:0}}
+.top{padding:16px 20px 10px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.top h1{font-size:20px;margin:0;font-weight:700;letter-spacing:-.01em}
+.back{border:0;background:var(--card);width:36px;height:36px;border-radius:12px;font-size:18px}
+.avatar{width:38px;height:38px;border-radius:50%;border:0;background:var(--navy);color:#fff;font-weight:600;display:grid;place-items:center;flex:none}
+.scroll{flex:1;overflow-y:auto;padding:0 16px 20px}
+.nav{display:flex;background:var(--card);border-top:1px solid var(--line);padding:6px 4px 8px}
+.nav button{flex:1;border:0;background:none;padding:6px 0;font-size:11px;color:var(--mute);display:flex;flex-direction:column;align-items:center;gap:3px}
+.nav button svg{width:22px;height:22px}
+.nav button.on{color:var(--navy)}
+.card{background:var(--card);border-radius:18px;padding:16px;margin-bottom:12px}
+.btn{border:0;border-radius:14px;padding:13px 16px;font-weight:600;background:var(--navy);color:#fff;width:100%}
+:root[data-theme="dark"] .btn{color:#0E1330}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn{color:#0E1330}}
+.btn.ghost{background:var(--chip);color:var(--ink)}
+.btn.sm{width:auto;padding:9px 13px;font-size:13px;border-radius:11px}
+.row{display:flex;gap:8px;align-items:center}
+.muted{color:var(--mute);font-size:13px}
+.h2{font-size:17px;font-weight:600;margin:18px 4px 10px}
+.pill{display:inline-block;padding:3px 9px;border-radius:99px;font-size:12px;font-weight:600;background:var(--chip);color:var(--ink2)}
+.match{background:var(--sun);color:var(--sunInk)}
+input{width:100%;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:13px;padding:13px 14px;font:inherit}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:9px 13px;font-size:14px}
+.opt.sel{border-color:var(--navy);background:var(--navy);color:#fff}
+/* welcome */
+.hero{flex:1;display:flex;flex-direction:column;justify-content:flex-end;padding:28px 22px 26px;background:var(--navy);color:#fff}
+:root[data-theme="dark"] .hero{background:#1C2C74}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .hero{background:#1C2C74}}
+.steps{display:flex;gap:6px;margin-bottom:auto;padding-top:18px}
+.steps span{height:10px;border-radius:3px;background:rgba(255,255,255,.18)}
+.hero h2{font-size:38px;line-height:1.02;letter-spacing:-.03em;margin:0 0 12px;font-weight:700}
+.hero p{margin:0 0 20px;color:#C9D0F2;max-width:30ch}
+.hero .form{background:var(--card);color:var(--ink);border-radius:22px;padding:16px}
+.hero .form label{font-size:13px;color:var(--mute);display:block;margin:0 0 6px}
+.err{color:var(--no);font-size:13px;margin-top:6px;min-height:0}
+/* chat */
+.chat{display:flex;flex-direction:column;gap:8px;padding-top:4px}
+.msg{max-width:84%;padding:10px 13px;border-radius:16px;font-size:14.5px}
+.msg.ai{background:var(--card);border-bottom-left-radius:5px;align-self:flex-start}
+.msg.me{background:var(--navy);color:#fff;border-bottom-right-radius:5px;align-self:flex-end}
+:root[data-theme="dark"] .msg.me{color:#0E1330}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .msg.me{color:#0E1330}}
+.dir{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.dir:first-of-type{border-top:0}
+.bar{height:6px;border-radius:3px;background:var(--chip);margin-top:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--sun)}
+.composer{display:flex;gap:8px;padding:10px 16px;background:var(--bg);border-top:1px solid var(--line)}
+.composer input{padding:11px 13px}
+.composer .btn{width:auto}
+.pw{white-space:pre-wrap}
+a.site{display:inline-block;margin-top:3px;font-size:12.5px;font-weight:600;color:var(--navy);text-decoration:none}
+:root[data-theme="dark"] a.site{color:#9DB0FF}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) a.site{color:#9DB0FF}}
+.face.photo{position:relative;color:#fff;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.face.photo.big{width:68px;height:68px;font-size:22px;border-radius:50%;display:grid;place-items:center;flex:none}
+.face .dot{position:absolute;right:1px;bottom:1px;width:11px;height:11px;border-radius:50%;background:#2ECC71;border:2px solid var(--card)}
+.card.pro{background:linear-gradient(135deg,#3B5BDB,#2B3F9E);color:#fff}
+.opt.fmt{display:block;width:100%;text-align:left;margin-bottom:8px}
+.opt[disabled]{opacity:.45;pointer-events:none}
+.pill.ok{background:#E4F4EC;color:#1F7A4F}
+.nav button{position:relative}
+.badge{position:absolute;top:2px;left:calc(50% + 6px);min-width:17px;height:17px;padding:0 4px;border-radius:9px;background:#E5322D;color:#fff;font-size:10.5px;font-style:normal;font-weight:700;display:grid;place-items:center}
+.card.notif{background:#FFF6DB;color:#5A4300}
+.card.hint{background:var(--chip)}
+.sortsel{border:0;background:var(--card);color:var(--ink);border-radius:10px;padding:6px 8px;font:inherit;font-size:13px}
+.why{margin-top:6px;font-size:12.5px;color:#1F7A4F;background:#E9F7EF;border-radius:10px;padding:6px 10px}
+.card.alink{display:block;width:100%;text-align:left;border:0;cursor:pointer;font:inherit;color:inherit}
+.tour-bg{position:fixed;inset:0;background:rgba(15,20,50,.55);display:grid;place-items:end center;padding:16px 16px calc(90px + env(safe-area-inset-bottom,0px));z-index:50}
+.tour{background:var(--card);color:var(--ink);border-radius:20px;padding:18px;max-width:380px;width:100%;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.path{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:10px 0}
+.step{background:var(--chip);border-radius:10px;padding:5px 9px;font-size:13px}
+.step.last{background:#1E2A6E;color:#fff;font-weight:600}
+.arr{color:var(--muted)}
+.lnk{border:0;background:none;color:var(--navy);font:inherit;font-size:13px;padding:2px 6px;cursor:pointer}
+/* jobs */
+.job .co{display:flex;gap:12px;align-items:center}
+.logo{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-weight:700;color:#fff;flex:none}
+.job h3{margin:0;font-size:15.5px;font-weight:600}
+.job .acts{display:flex;gap:8px;margin-top:12px}
+.job .acts .btn{flex:1}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:2px 2px 10px}
+.tabs button{border:0;background:var(--card);border-radius:99px;padding:7px 12px;font-size:13px;white-space:nowrap}
+.tabs button.on{background:var(--ink);color:var(--bg)}
+/* tracker */
+.big{font-size:42px;font-weight:700;letter-spacing:-.03em;line-height:1}
+.st{font-size:12px;font-weight:600;padding:4px 9px;border-radius:99px}
+.st.Applied{background:var(--chip);color:var(--ink2)}
+.st.Viewed{background:var(--waitbg);color:var(--wait)}
+.st.Interview{background:#FFF1CC;color:#6A4B00}
+.st.Offer{background:var(--okbg);color:var(--ok)}
+.st.Rejected{background:var(--nobg);color:var(--no)}
+.pipe{display:flex;gap:4px;margin-top:14px}
+.pipe div{flex:1;text-align:center;font-size:11px;color:var(--mute)}
+.pipe b{display:block;font-size:18px;color:var(--ink)}
+.trk{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.trk:first-child{border-top:0}
+/* mentors */
+.ment{display:flex;gap:12px}
+.face{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;font-weight:700;font-size:18px;flex:none}
+.sheet-bg{position:absolute;inset:0;background:rgba(10,14,40,.45);display:none;align-items:flex-end;z-index:5}
+.sheet-bg.show{display:flex}
+.sheet{background:var(--card);width:100%;border-radius:24px 24px 0 0;padding:20px 18px calc(20px + env(safe-area-inset-bottom,0px))}
+.sheet h3{margin:0 0 4px;font-size:18px}
+.toast{position:absolute;left:50%;bottom:86px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:14px;opacity:0;transition:.25s;pointer-events:none;z-index:6;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.hr-head{display:flex;gap:10px;align-items:center}
+.home-cta{background:var(--navy);color:#fff;border-radius:22px;padding:18px;margin-bottom:12px}
+:root[data-theme="dark"] .home-cta{background:#1C2C74}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .home-cta{background:#1C2C74}}
+.home-cta p{margin:6px 0 14px;color:#C9D0F2;font-size:14px}
+.home-cta .btn{background:var(--sun);color:var(--sunInk)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{background:var(--card);border:0;border-radius:18px;padding:14px;text-align:left}
+.tile b{display:block;font-size:15px;margin-bottom:3px}
+.field{padding:10px 0;border-top:1px solid var(--line)}
+.field:first-child{border-top:0}
+.field .muted{display:block}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.src{font-size:11px;font-weight:600;padding:2px 7px;border-radius:6px;background:var(--chip);color:var(--ink2);margin-left:6px}
+.lang{display:flex;gap:4px;background:rgba(255,255,255,.12);border-radius:10px;padding:3px;align-self:flex-start}
+.lang button{border:0;background:none;color:#C9D0F2;padding:5px 10px;border-radius:8px;font-size:13px;font-weight:600}
+.lang button.on{background:#fff;color:#1C2C74}
+.lang.dark{background:var(--chip)}.lang.dark button{color:var(--ink2)}.lang.dark button.on{background:var(--navy);color:#fff}
+.sal{font-weight:600;font-size:14px;margin-top:8px}
+.why{background:var(--chip);border-radius:12px;padding:10px 12px;font-size:13.5px;margin-top:10px}
+.prog{height:5px;border-radius:3px;background:var(--chip);overflow:hidden;margin:4px 0 2px}.prog i{display:block;height:100%;background:var(--navy)}
+.verified{color:var(--ok);font-weight:600}
+.note{font-size:12.5px;color:var(--mute);text-align:center;padding:8px 12px}
+select{width:100%;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:13px;padding:12px;font:inherit}
+.lbl{font-size:13px;color:var(--mute);display:block;margin:10px 0 6px}
+.filebox{border:1.5px dashed var(--line);border-radius:14px;padding:14px;text-align:center;display:block;cursor:pointer}
+.trk{cursor:pointer}
+</style>
+</head>
+<body>
+<div class="stage"><div class="phone" id="app"></div></div>
+
+<script>
+const S={lang:"en",name:"",program:"",dir:null,dirs:null,answers:[],q:0,screen:"welcome",jobFilter:"All",hrJob:null,hrMsgs:{},chat:[],quizOn:false,cv:null,
+  apps:[
+    {id:"a1",co:"Astana Hub",role:"Junior Business Analyst",status:"Viewed",date:"12 Sep",src:"FirstStep"},
+    {id:"a2",co:"Kaspi.kz",role:"Operations Intern",status:"Rejected",date:"5 Sep",src:"hh.kz"},
+    {id:"a3",co:"GRATA International",role:"Legal Intern",status:"Interview",date:"2 Sep",src:"FirstStep"}
+  ]};
+const L={
+en:{home:"Home",ai:"AI",jobs:"Jobs",mentors:"Mentors",tracker:"Tracker",
+ heroT:"Your first job after MNU, step by step.",heroP:"Find your direction with an AI career assistant, talk to HR directly and get advice from MNU alumni.",
+ yourName:"Your name",yourProg:"Your program",create:"Create my profile",eName:"Enter your name first",eProg:"Choose your program",
+ hi:"Hi",notSure:"Not sure where to start?",notSureP:"Answer 6 short questions and the AI will suggest 3 career directions and explain why.",
+ findDir:"Find my direction",yourDir:"Your direction",yourDirP:"We found jobs and internships in Astana that match it.",seeJobs:"See matching jobs",
+ gotReply:"applications got a reply",alumni:"MNU alumni ready to help",improveCv:"Improve my CV",cvTip:"AI tips in 1 minute",practice:"Practice interview",practiceP:"3 real questions",newForYou:"New for you",
+ aiTitle:"AI career assistant",ask:"Ask anything about your career",send:"Send",startQuiz:"Start the 6 questions",
+ aiHello:n=>`Hi ${n}! I'm your career assistant. I'll ask 6 short questions about what you enjoy, then suggest 3 directions and explain each one.`,
+ qOf:(a,b)=>`Question ${a} of ${b}`,top3:"Your top 3 directions:",whyT:"Why this match",
+ why:(p,t1,c1,t2,c2)=>`You study ${p} and chose ${t1} ${c1} times and ${t2} ${c2} times out of 6.`,
+ prep:"Prepare for interview",findInt:"Find internships",retake:"Retake the quiz",
+ aiDefault:"Good question! In the full version I'll answer based on your profile. For now, try the buttons below.",
+ cvT:"3 quick fixes for your CV",cv1:"Put your MNU projects and moot courts at the top, not at the end.",cv2:'Start each line with a result: "Prepared 12 contracts" instead of "Worked with documents".',cv3:"Keep it to one page and add your English level.",
+ mockT:"Mock interview",mq1:"Tell me about a project at MNU you are proud of.",mq2:d=>`Why do you want to start your career in ${d}?`,mq3:"How do you handle a deadline you can't meet?",star:"Tip: answer with the STAR method – situation, task, action, result.",thisField:"this field",
+ jobsT:"Jobs for you",all:"All",internship:"Internship",job:"Job",sorted:d=>`Sorted by match with your direction: ${d}`,
+ apply:"Apply",applied:"Applied",msgHr:"Message HR",hrReplies:"HR replies",perMonth:"per month",
+ sendingT:"Check before sending",sendingP:"The employer will see:",yourCv:"Your CV",genCv:"FirstStep profile (auto-generated CV)",uploadOwn:"Upload my own CV instead",confirmApply:"Send application",cancel:"Cancel",
+ appliedToast:"Applied – added to your tracker",
+ verified:"Verified HR",answers:p=>`answers ${p}% of messages`,hrHello:r=>`Hi! I'm hiring for the ${r} position. Feel free to ask me anything about the role.`,
+ hrQ1:"Do you accept graduates without work experience?",hrQ2:"What does the selection process look like?",writeHr:"Write to HR",
+ hrReply:"Yes, we're open to recent graduates. Apply with your profile and mention your MNU projects – I'll review it this week.",
+ hrNote:"If HR doesn't reply within 3 days, we remind them and let you know.",
+ mentT:"MNU mentors",mentP:"Alumni who went through the same job search. Free for MNU graduates, 2 calls a month.",book:"Book a 30-min call",booked:"Call booked:",
+ bookT:n=>`Book a call with ${n}`,bookP:"30 minutes, online. Choose a time:",bookedToast:"Call booked for",rating:(r,c)=>`Rating ${r}, ${c} calls`,
+ trkT:"My applications",replies:"Replies",of:"of",addOther:"Add from another site",findMore:"Find more jobs",noApps:"No applications yet. Open Jobs and apply, or add one from another site.",
+ addT:"Add an application",company:"Company",role:"Position",source:"Where did you apply?",status:"Status",save:"Add to tracker",eFill:"Fill in company and position",addedToast:"Added to your tracker",
+ changeSt:"Update status",tapHint:"Tap an application to update its status.",
+ today:"Today",
+ profT:"My profile",oneProf:"One profile for all applications",edu:"Education",dirL:"Direction",skills:"Skills",projects:"Projects",notChosen:"Not chosen yet",
+ cvFile:"My CV file",noCv:"No file yet – we send your FirstStep profile.",upload:"Upload CV (PDF or Word)",replace:"Replace file",improveAi:"Improve with AI",cvToast:"CV uploaded",language:"Language",classOf:"class of 2026",
+ st:{Applied:"Applied",Viewed:"Viewed",Interview:"Interview",Offer:"Offer",Rejected:"Rejected"},
+ tr:{A:"analysis",P:"working with people",N:"numbers",W:"writing"}
+},
+ru:{home:"Главная",ai:"ИИ",jobs:"Вакансии",mentors:"Менторы",tracker:"Трекер",
+ heroT:"Первая работа после MNU, шаг за шагом.",heroP:"Выберите направление с ИИ-помощником, пишите HR напрямую и получайте советы от выпускников MNU.",
+ yourName:"Ваше имя",yourProg:"Ваша программа",create:"Создать профиль",eName:"Сначала введите имя",eProg:"Выберите программу",
+ hi:"Привет",notSure:"Не знаете, с чего начать?",notSureP:"Ответьте на 6 коротких вопросов, и ИИ предложит 3 направления и объяснит почему.",
+ findDir:"Найти направление",yourDir:"Ваше направление",yourDirP:"Мы нашли подходящие вакансии и стажировки в Астане.",seeJobs:"Смотреть вакансии",
+ gotReply:"откликов получили ответ",alumni:"выпускника MNU готовы помочь",improveCv:"Улучшить резюме",cvTip:"Советы ИИ за 1 минуту",practice:"Тренировка интервью",practiceP:"3 реальных вопроса",newForYou:"Новое для вас",
+ aiTitle:"ИИ-помощник по карьере",ask:"Спросите что угодно о карьере",send:"Отправить",startQuiz:"Начать 6 вопросов",
+ aiHello:n=>`Привет, ${n}! Я ваш карьерный помощник. Задам 6 коротких вопросов о том, что вам нравится, а потом предложу 3 направления и объясню каждое.`,
+ qOf:(a,b)=>`Вопрос ${a} из ${b}`,top3:"Ваши топ-3 направления:",whyT:"Почему такой результат",
+ why:(p,t1,c1,t2,c2)=>`Вы учитесь на ${p} и выбрали «${t1}» ${c1} раз и «${t2}» ${c2} раз из 6.`,
+ prep:"Подготовка к интервью",findInt:"Найти стажировки",retake:"Пройти заново",
+ aiDefault:"Хороший вопрос! В полной версии я отвечу с учётом вашего профиля. Пока попробуйте кнопки ниже.",
+ cvT:"3 быстрых улучшения резюме",cv1:"Поставьте проекты MNU и муткорты наверх, а не в конец.",cv2:"Начинайте каждую строку с результата: «Подготовила 12 договоров», а не «Работала с документами».",cv3:"Уложитесь в одну страницу и укажите уровень английского.",
+ mockT:"Пробное интервью",mq1:"Расскажите о проекте в MNU, которым вы гордитесь.",mq2:d=>`Почему вы хотите начать карьеру в сфере «${d}»?`,mq3:"Что вы делаете, если не успеваете к дедлайну?",star:"Совет: отвечайте по методу STAR – ситуация, задача, действие, результат.",thisField:"этой сфере",
+ jobsT:"Вакансии для вас",all:"Все",internship:"Стажировка",job:"Работа",sorted:d=>`Отсортировано по совпадению с направлением: ${d}`,
+ apply:"Откликнуться",applied:"Отклик отправлен",msgHr:"Написать HR",hrReplies:"HR отвечает",perMonth:"в месяц",
+ sendingT:"Проверьте перед отправкой",sendingP:"Работодатель увидит:",yourCv:"Ваше резюме",genCv:"Профиль FirstStep (резюме создано автоматически)",uploadOwn:"Загрузить своё резюме",confirmApply:"Отправить отклик",cancel:"Отмена",
+ appliedToast:"Отклик отправлен и добавлен в трекер",
+ verified:"Проверенный HR",answers:p=>`отвечает на ${p}% сообщений`,hrHello:r=>`Здравствуйте! Я набираю на позицию ${r}. Спрашивайте всё, что хотите узнать о работе.`,
+ hrQ1:"Вы берёте выпускников без опыта работы?",hrQ2:"Как проходит отбор?",writeHr:"Написать HR",
+ hrReply:"Да, мы открыты к выпускникам. Откликнитесь через профиль и укажите проекты в MNU – я посмотрю на этой неделе.",
+ hrNote:"Если HR не ответит за 3 дня, мы напомним ему и сообщим вам.",
+ mentT:"Менторы MNU",mentP:"Выпускники, которые прошли тот же поиск работы. Бесплатно для выпускников MNU, 2 звонка в месяц.",book:"Записаться на 30 минут",booked:"Звонок:",
+ bookT:n=>`Звонок с ${n}`,bookP:"30 минут, онлайн. Выберите время:",bookedToast:"Звонок назначен на",rating:(r,c)=>`Рейтинг ${r}, ${c} звонков`,
+ trkT:"Мои отклики",replies:"Ответы",of:"из",addOther:"Добавить с другого сайта",findMore:"Найти ещё вакансии",noApps:"Откликов пока нет. Откройте вакансии или добавьте отклик с другого сайта.",
+ addT:"Добавить отклик",company:"Компания",role:"Должность",source:"Где откликались?",status:"Статус",save:"Добавить в трекер",eFill:"Заполните компанию и должность",addedToast:"Добавлено в трекер",
+ changeSt:"Изменить статус",tapHint:"Нажмите на отклик, чтобы изменить статус.",
+ today:"Сегодня",
+ profT:"Мой профиль",oneProf:"Один профиль для всех откликов",edu:"Образование",dirL:"Направление",skills:"Навыки",projects:"Проекты",notChosen:"Пока не выбрано",
+ cvFile:"Файл резюме",noCv:"Файла нет – отправляем профиль FirstStep.",upload:"Загрузить резюме (PDF или Word)",replace:"Заменить файл",improveAi:"Улучшить с ИИ",cvToast:"Резюме загружено",language:"Язык",classOf:"выпуск 2026",
+ st:{Applied:"Отправлен",Viewed:"Просмотрен",Interview:"Интервью",Offer:"Оффер",Rejected:"Отказ"},
+ tr:{A:"анализ",P:"работа с людьми",N:"цифры",W:"письмо и документы"}
+}};
+const T=k=>L[S.lang][k];
+const PROGRAMS=["Law","Business","Economics","Other"];
+const QUIZ={
+en:[["Which MNU classes did you enjoy most?",["Research and case analysis","Group projects and presentations","Statistics and finance","Essays and legal writing"]],
+ ["What kind of task gives you energy?",["Solving a complex problem","Talking and negotiating with people","Working with numbers","Writing a clear document"]],
+ ["Your ideal workday looks like…",["Research and analysis","Meetings and teamwork","Excel and data","Drafting documents"]],
+ ["What would your friends say you're good at?",["Finding the logic in things","Convincing people","Counting fast","Explaining things in writing"]],
+ ["Which project would you pick?",["Market or legal research","Organising an event","Planning a budget","Preparing a contract or report"]],
+ ["What do you want to grow in?",["Critical thinking","Leadership","Financial skills","Professional writing"]]],
+ru:[["Какие предметы в MNU нравились больше всего?",["Исследования и анализ кейсов","Групповые проекты и презентации","Статистика и финансы","Эссе и юридическое письмо"]],
+ ["Какие задачи дают вам энергию?",["Решать сложную задачу","Общаться и договариваться с людьми","Работать с цифрами","Писать понятный документ"]],
+ ["Ваш идеальный рабочий день – это…",["Исследования и анализ","Встречи и работа в команде","Excel и данные","Подготовка документов"]],
+ ["Что друзья скажут о ваших сильных сторонах?",["Находить логику","Убеждать людей","Быстро считать","Объяснять письменно"]],
+ ["Какой проект вы бы выбрали?",["Исследование рынка или права","Организация мероприятия","Планирование бюджета","Подготовка договора или отчёта"]],
+ ["В чём хотите расти?",["Критическое мышление","Лидерство","Финансовые навыки","Профессиональное письмо"]]]};
+const TRAITS=["A","P","N","W"];
+const DIRS={
+ Law:[["Corporate lawyer","W","A"],["Compliance specialist","A","N"],["Legal consultant","P","W"],["Legal analyst","A","W"]],
+ Business:[["Business analyst","A","N"],["Project coordinator","P","W"],["Marketing specialist","P","W"],["Account manager","P","N"]],
+ Economics:[["Financial analyst","N","A"],["Economic researcher","A","W"],["Risk analyst","N","A"],["Bank client manager","P","N"]],
+ Other:[["HR specialist","P","W"],["Project coordinator","P","A"],["Content manager","W","P"],["Data assistant","N","A"]]};
+const JOBS=[
+  {id:"j1",sch:"full",noexp:0,smin:350000,web:"https://gratanet.com",co:"GRATA International",role:"Junior Associate",dir:"Law",type:"Job",m:88,c:"#2F4BB3",hr:"Aliya Nurlanovna",rt:2,rr:94,sal:"350 000 – 450 000 ₸"},
+  {id:"j2",sch:"flex",noexp:1,smin:180000,web:"https://astanahub.com",co:"Astana Hub",role:"Business Analyst Intern",dir:"Business",type:"Internship",m:84,c:"#1F8A5B",hr:"Daniyar Sadykov",rt:1,rr:97,sal:"180 000 ₸"},
+  {id:"j3",sch:"full",noexp:0,smin:320000,web:"https://halykbank.kz",co:"Halyk Bank",role:"Junior Financial Analyst",dir:"Economics",type:"Job",m:81,c:"#0F7A6B",hr:"Madina Zhakupova",rt:3,rr:88,sal:"320 000 – 400 000 ₸"},
+  {id:"j4",sch:"part",noexp:1,smin:200000,web:"https://aifc.kz",co:"AIFC",role:"Compliance Intern",dir:"Law",type:"Internship",m:79,c:"#6B5BD2",hr:"Timur Akhmetov",rt:2,rr:91,sal:"200 000 ₸"},
+  {id:"j5",sch:"full",noexp:0,smin:300000,web:"https://beeline.kz",co:"Beeline Kazakhstan",role:"Project Coordinator",dir:"Business",type:"Job",m:76,c:"#C98A00",hr:"Aigerim Bekova",rt:2,rr:90,sal:"300 000 – 380 000 ₸"},
+  {id:"j6",sch:"part",noexp:1,smin:170000,web:"https://sk.kz",co:"Samruk-Kazyna",role:"Economic Research Intern",dir:"Economics",type:"Internship",m:73,c:"#B3372F",hr:"Nurlan Ospanov",rt:4,rr:85,sal:"170 000 ₸"},
+  {id:"j7",sch:"flex",noexp:1,smin:250000,web:"https://freedomholding.com",co:"Freedom Holding",role:"HR Assistant",dir:"Other",type:"Job",m:71,c:"#2B3F9E",hr:"Dana Iskakova",rt:1,rr:95,sal:"250 000 – 300 000 ₸"},
+  {id:"j8",sch:"flex",noexp:1,smin:150000,web:"https://kaspi.kz",co:"Kaspi.kz",role:"Marketing Intern",dir:"Business",type:"Internship",m:78,c:"#E5322D",hr:"Asel Karimova",rt:2,rr:92,sal:"150 000 ₸"},
+  {id:"j9",sch:"full",noexp:1,smin:230000,web:"https://kpmg.com/kz",co:"KPMG Kazakhstan",role:"Audit Trainee",dir:"Economics",type:"Internship",m:75,c:"#1E49B8",hr:"Ruslan Zhumabayev",rt:3,rr:89,sal:"230 000 ₸"}
+];
+const MENTORS=[
+  {n:"Arman Kassymov",dir:"Law",t:"Associate at a law firm",y:"MNU Law, 2021",i:"AK",c:"#E4E8FF",f:"#2B3F9E",g:"linear-gradient(135deg,#6C86FF,#2B3F9E)",r:"4.9",k:38,price:5000,
+   b:{en:"Went from 40 rejections to an offer at a top law firm in 4 months. Helps with legal CVs, moot court stories and first interviews.",ru:"Прошёл путь от 40 отказов до оффера в топ-юрфирме за 4 месяца. Помогает с резюме юриста, историями про муткорты и первыми интервью."},
+   tp:{en:["Legal CV","Interview prep","Law firms in Astana"],ru:["Резюме юриста","Подготовка к интервью","Юрфирмы Астаны"]},
+   rv:{en:"Arman rewrote my CV in 20 minutes – I got 2 interviews that week.",ru:"Арман переписал моё резюме за 20 минут – на той же неделе меня позвали на 2 интервью."},rvn:"Dana, Law 2025"},
+  {n:"Saule Tulegenova",dir:"Business",t:"Business Analyst at Astana Hub",y:"MNU Business, 2022",i:"ST",c:"#E4F4EC",f:"#1F8A5B",g:"linear-gradient(135deg,#4FD18F,#1F8A5B)",r:"4.8",k:24,price:4000,
+   b:{en:"Started as an intern at Astana Hub, now a full-time analyst. Knows what IT companies look for in juniors.",ru:"Начинала стажёром в Astana Hub, сейчас аналитик в штате. Знает, что IT-компании ждут от джунов."},
+   tp:{en:["Internships in IT","Case interviews","Excel & SQL basics"],ru:["Стажировки в IT","Кейс-интервью","Основы Excel и SQL"]},
+   rv:{en:"Saule explained case interviews so clearly. I passed the Astana Hub test!",ru:"Сауле так понятно объяснила кейс-интервью. Я прошла тест в Astana Hub!"},rvn:"Alikhan, Business 2025"},
+  {n:"Yerlan Mukhamedov",dir:"Economics",t:"Financial Analyst at a bank",y:"MNU Economics, 2020",i:"YM",c:"#FFF1CC",f:"#6A4B00",g:"linear-gradient(135deg,#FFC93C,#C98A00)",r:"5.0",k:17,price:5000,
+   b:{en:"5 years in banking. Helps economics graduates prepare for bank selection: tests, Excel tasks and interviews.",ru:"5 лет в банке. Помогает экономистам подготовиться к отбору в банки: тесты, задания в Excel и интервью."},
+   tp:{en:["Banking careers","Excel tests","Salary talk"],ru:["Карьера в банке","Тесты в Excel","Разговор о зарплате"]},
+   rv:{en:"Thanks to Yerlan I knew exactly what the bank test would look like.",ru:"Благодаря Ерлану я точно знал, каким будет тест в банке."},rvn:"Miras, Economics 2024"},
+  {n:"Aruzhan Bekmurat",dir:"CV",t:"HR Manager at a tech company",y:"MNU, 2019",i:"AB",c:"#FBE8E6",f:"#B3372F",g:"linear-gradient(135deg,#FF7A6E,#B3372F)",r:"4.9",k:41,price:3000,
+   b:{en:"Reviews 200+ CVs a month. Shows what HR really sees in the first 7 seconds of reading your CV.",ru:"Просматривает 200+ резюме в месяц. Покажет, что HR на самом деле видит в первые 7 секунд."},
+   tp:{en:["CV from HR's view","LinkedIn profile","Mock interview"],ru:["Резюме глазами HR","Профиль LinkedIn","Пробное интервью"]},
+   rv:{en:"Aruzhan's LinkedIn tips brought me 3 messages from recruiters.",ru:"После советов Аружан по LinkedIn мне написали 3 рекрутера."},rvn:"Zhanna, Law 2025"}
+];
+const SOURCES=["FirstStep","hh.kz","LinkedIn","Enbek.kz","Other"];
+const STS=["Applied","Viewed","Interview","Offer","Rejected"];
+const $=s=>document.querySelector(s);
+const esc=t=>String(t).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const initials=()=>S.name?S.name.trim().split(/\s+/).map(w=>w[0]).slice(0,2).join("").toUpperCase():"Me";
+const ic={
+ home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-6 8 6v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/></svg>',
+ ai:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.6L18 9.4l-4.2 1.8L12 16l-1.8-4.8L6 9.4l4.2-1.8z"/><path d="M18 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></svg>',
+ jobs:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M3 13h18"/></svg>',
+ ment:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M18 14.5a6.5 6.5 0 0 1 3.5 5.5"/></svg>',
+ trk:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h10M4 18h6"/><circle cx="18" cy="16" r="3"/></svg>'
+};
+function langSwitch(dark){return `<div class="lang ${dark?"dark":""}" role="group" aria-label="Language">${["en","ru"].map(l=>`<button class="${S.lang===l?"on":""}" onclick="setLang('${l}')">${l.toUpperCase()}</button>`).join("")}</div>`;}
+function setLang(l){if(S.screen==="welcome"){const n=$("#nm");if(n)S.name=n.value;}S.lang=l;try{localStorage.setItem("fs_lang",l)}catch(e){}render();}
+function nav(){const t=[["home",ic.home],["ai",ic.ai],["jobs",ic.jobs],["mentors",ic.ment],["tracker",ic.trk]];
+ const cur=S.screen==="hr"?"jobs":S.screen;
+ return '<nav class="nav">'+t.map(([k,i])=>`<button class="${cur===k?"on":""}" onclick="go('${k}')">${i}${k==="tracker"&&unread()?`<i class="badge">${unread()}</i>`:""}<span>${T(k)}</span></button>`).join("")+'</nav>';}
+function topBar(title,back){return `<div class="top">${back?`<button class="back" onclick="go('${back}')" aria-label="Back">‹</button>`:""}<h1 style="flex:1">${title}</h1><button class="avatar" onclick="go('profile')" aria-label="Profile">${esc(initials())}</button></div>`;}
+function toast(t){const el=$("#toast");el.textContent=t;el.classList.add("show");clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove("show"),2000);}
+function go(s){S.screen=s;render();}
+function frame(inner){return inner+'<div class="toast" id="toast" role="status"></div><div class="sheet-bg" id="sheet" onclick="if(event.target===this)closeSheet()"><div class="sheet" id="sheetIn"></div></div>';}
+function openSheet(h){$("#sheetIn").innerHTML=h;$("#sheet").classList.add("show");}
+function closeSheet(){$("#sheet").classList.remove("show");}
+
+/* welcome */
+function welcome(){return frame(`<div class="hero">
+ <div class="row" style="justify-content:space-between;padding-top:14px;margin-bottom:auto"><div class="steps" style="padding:0;margin:0" aria-hidden="true"><span style="width:18px"></span><span style="width:32px"></span><span style="width:52px"></span><span style="width:78px;background:var(--sun)"></span></div>${langSwitch()}</div>
+ <h2>${T("heroT")}</h2><p>${T("heroP")}</p>
+ <div class="form">
+  <label for="nm">${T("yourName")}</label><input id="nm" placeholder="Aigerim" value="${esc(S.name)}" oninput="$('#e1').textContent=''">
+  <div class="err" id="e1"></div>
+  <label style="margin-top:12px">${T("yourProg")}</label>
+  <div class="opts">${PROGRAMS.map(p=>`<button class="opt ${S.program===p?"sel":""}" onclick="pickProg('${p}')">${p}</button>`).join("")}</div>
+  <div class="err" id="e2"></div>
+  <button class="btn" style="margin-top:14px" onclick="signUp()">${T("create")}</button>
+ </div></div>`);}
+function pickProg(p){S.name=$("#nm").value;S.program=p;render();}
+function signUp(){S.name=$("#nm").value.trim();let ok=true;
+ if(!S.name){$("#e1").textContent=T("eName");ok=false}
+ if(!S.program){$("#e2").textContent=T("eProg");ok=false}
+ if(!ok)return;go("home");}
+
+/* home */
+function home(){const replies=S.apps.filter(a=>a.status!=="Applied").length;
+ return frame(topBar(`${T("hi")}, ${esc(S.name.split(" ")[0])}`)+`<div class="scroll">
+ <div class="home-cta"><div style="font-size:19px;font-weight:600">${S.dir?`${T("yourDir")}: ${esc(S.dir)}`:T("notSure")}</div>
+ <p>${S.dir?T("yourDirP"):T("notSureP")}</p>
+ <button class="btn" onclick="${S.dir?"go('jobs')":"startQuiz()"}">${S.dir?T("seeJobs"):T("findDir")}</button></div>
+ <div class="grid2">
+  <button class="tile" onclick="go('tracker')"><b>${replies} ${T("of")} ${S.apps.length}</b><span class="muted">${T("gotReply")}</span></button>
+  <button class="tile" onclick="go('mentors')"><b>${MENTORS.length}</b><span class="muted">${T("alumni")}</span></button>
+  <button class="tile" onclick="aiQuick('cv')"><b>${T("improveCv")}</b><span class="muted">${T("cvTip")}</span></button>
+  <button class="tile" onclick="aiQuick('int')"><b>${T("practice")}</b><span class="muted">${T("practiceP")}</span></button>
+ </div>
+ <button class="card alink" onclick="go('alumni')"><div style="font-weight:600">🎓 ${T("alumT")}</div><div class="muted">${T("alumTeaser")}</div></button>
+ <div class="h2">${T("newForYou")}</div>
+ ${JOBS.slice().sort((a,b)=>matchOf(b).m-matchOf(a).m).slice(0,2).map(jobCard).join("")}
+ </div>`+nav()+tourHtml());}
+
+/* AI */
+function ensureChat(){if(!S.chat.length)S.chat.push({a:1,k:"hello"});}
+function renderMsg(m){
+ if(m.k==="hello")return `<div class="msg ai">${esc(T("aiHello")(S.name||""))}</div>`;
+ if(m.k==="result")return `<div class="msg ai" style="max-width:92%">${resultHtml()}</div>`;
+ if(m.k==="cv")return `<div class="msg ai" style="max-width:92%"><div style="font-weight:600;margin-bottom:6px">${T("cvT")}</div><div>1. ${T("cv1")}</div><div>2. ${esc(T("cv2"))}</div><div>3. ${T("cv3")}</div></div>`;
+ if(m.k==="int")return `<div class="msg ai" style="max-width:92%"><div style="font-weight:600;margin-bottom:6px">${T("mockT")}</div><div>1. ${T("mq1")}</div><div>2. ${esc(T("mq2")(S.dir||T("thisField")))}</div><div>3. ${T("mq3")}</div><div class="muted" style="margin-top:8px">${T("star")}</div></div>`;
+ if(m.k==="def")return `<div class="msg ai">${T("aiDefault")}</div>`;
+ if(m.k==="qa")return `<div class="msg me">${esc(QUIZ[S.lang][m.q][1][m.o])}</div>`;
+ if(m.k==="btn")return `<div class="msg me">${esc(T(m.t))}</div>`;
+ return `<div class="msg ${m.a?"ai":"me"} pw"${m.id?` id="${m.id}"`:""}>${m.t?esc(m.t):'<span class="muted">…</span>'}</div>`;}
+function resultHtml(){const d=S.dirs;
+ return `<div style="margin-bottom:8px">${T("top3")}</div>`+d.map(x=>`<div class="dir"><div style="flex:1"><div style="font-weight:600">${x.n}</div><div class="bar"><i style="width:${x.m}%"></i></div></div><span class="pill match" style="margin-left:12px">${x.m}%</span></div>`).join("")+
+ `<div class="why"><b>${T("whyT")}:</b> ${esc(T("why")(S.program,T("tr")[d.t1],d.c1,T("tr")[d.t2],d.c2))}</div><button class="btn sm" style="margin-top:10px" onclick="go('jobs')">${T("seeJobs")}</button>`;}
+function ai(){ensureChat();
+ let tail="";
+ if(S.quizOn){const Q=QUIZ[S.lang][S.q];
+  tail=`<div class="msg ai" style="max-width:92%"><div class="muted">${T("qOf")(S.q+1,6)}</div><div class="prog"><i style="width:${(S.q)/6*100}%"></i></div><div style="font-weight:600;margin-top:6px">${Q[0]}</div></div>
+  <div class="opts">${Q[1].map((o,i)=>`<button class="opt" onclick="answer(${i})">${esc(o)}</button>`).join("")}</div>`;}
+ else if(!S.dirs)tail=`<div class="opts"><button class="opt sel" onclick="startQuiz()">${T("startQuiz")}</button></div>`;
+ else tail=`<div class="opts"><button class="opt" onclick="aiQuick('cv')">${T("improveCv")}</button><button class="opt" onclick="aiQuick('int')">${T("prep")}</button><button class="opt" onclick="go('jobs')">${T("findInt")}</button><button class="opt" onclick="startQuiz()">${T("retake")}</button></div>`;
+ return frame(topBar(T("aiTitle"))+`<div class="scroll" id="chatScroll"><div class="chat">${S.chat.map(renderMsg).join("")}${tail}</div></div>
+ <div class="composer"><input id="ask" placeholder="${T("ask")}" onkeydown="if(event.key==='Enter')sendAi()"><button class="btn sm" onclick="sendAi()">${T("send")}</button></div>`+nav());}
+function startQuiz(){ensureChat();S.quizOn=true;S.q=0;S.answers=[];go("ai");}
+function answer(i){S.chat.push({k:"qa",q:S.q,o:i});S.answers.push(TRAITS[i]);S.q++;
+ if(S.q>=6){S.quizOn=false;computeDirs();S.chat.push({a:1,k:"result"});
+  if(AI){askAI("The student just finished a 6-question interest quiz and the app showed their top 3 career directions. In 3-4 sentences, explain why the top direction fits their program and answers, and suggest one concrete first step they can take this week in Astana.");return;}}
+ render();}
+function computeDirs(){const cnt={A:0,P:0,N:0,W:0};S.answers.forEach(t=>cnt[t]++);
+ const list=(DIRS[S.program]||DIRS.Other).map(([n,t1,t2])=>({n,m:Math.min(96,52+cnt[t1]*7+cnt[t2]*4)})).sort((a,b)=>b.m-a.m).slice(0,3);
+ const top=Object.entries(cnt).sort((a,b)=>b[1]-a[1]);
+ list.t1=top[0][0];list.c1=top[0][1];list.t2=top[1][0];list.c2=top[1][1];
+ S.dirs=list;S.dir=list[0].n;}
+/* real AI */
+let AI=null,busy=false;
+try{if(window.claude&&window.claude.use)window.claude.use("sample").then(s=>{AI=s}).catch(()=>{})}catch(e){}
+function profileTxt(){return `Name: ${S.name||"-"}; MNU program: ${S.program||"-"}; skills: ${S.skills||"not filled"}; projects/experience: ${S.exp||"not filled"}; career goal: ${S.goal||"not filled"}; chosen direction: ${S.dir||"not chosen yet"}; top directions: ${S.dirs?S.dirs.map(d=>d.n).join(", "):"-"}; CV versions: ${(S.cvs||[]).join(", ")||"none"}; applications: ${S.apps.map(a=>a.role+" at "+a.co+" ("+a.status+")").join("; ")||"none"}`;}
+function transcript(){return S.chat.slice(-16).map(m=>{if(m.live)return null;if(m.k==="btn")return "Student: "+T(m.t);if(m.k==="result")return "Assistant: (showed top 3 directions: "+(S.dirs?S.dirs.map(d=>d.n+" "+d.m+"%").join(", "):"")+")";if(m.t!=null&&!m.k)return (m.a?"Assistant: ":"Student: ")+m.t;return null}).filter(Boolean).join("\n");}
+async function askAI(task){
+ const msg={a:1,t:"",live:1,id:"m"+Date.now()};S.chat.push(msg);busy=true;render();
+ const lang=S.lang==="ru"?"Russian":"English";
+ const prompt=`You are FirstStep, an AI career assistant for graduates of Maqsut Narikbayev University (MNU) in Astana, Kazakhstan, who are looking for their first job without work experience. Be friendly, practical and specific to Kazakhstan (hh.kz, Enbek.kz, LinkedIn, Astana Hub, internships at local companies). Never invent experience the student does not have. Reply in ${lang} unless the student writes in another language. Plain text only: no markdown, no asterisks, no headings; use short paragraphs or numbered lines. Keep it under 150 words.\n\nPersonalize every answer: use the student's program, skills, experience and goal from the profile, and when relevant name 1-2 specific roles from the FirstStep jobs list below. Avoid generic advice; if key info is missing, ask one short question about it.\n\nStudent profile: ${profileTxt()}\n\nFirstStep jobs: ${JOBS.map(j=>j.role+" at "+j.co+" ("+j.type+", "+j.dir+(j.noexp?", no experience needed":"")+", "+j.sal+")").join("; ")}\n\nConversation so far:\n${transcript()||"(none)"}\n\nTask: ${task}`;
+ try{const r=await AI(prompt,{cache:false,onText:({text})=>{msg.t=text;const el=document.getElementById(msg.id);if(el)el.textContent=text;const sc=document.querySelector(".scroll");if(sc)sc.scrollTop=sc.scrollHeight;}});msg.t=(r&&r.text)||msg.t;}
+ catch(e){msg.t=(e&&e.text)||(S.lang==="ru"?"Не получилось ответить. Попробуйте ещё раз.":"Something went wrong. Please try again.");}
+ msg.live=0;busy=false;if(S.screen==="ai")render();}
+function aiTailor(jid){const j=JOBS.find(x=>x.id===jid);ensureChat();S.chat.push({t:T("tailorMsg")(j.role,j.co)});S.screen="ai";
+ if(!AI){S.chat.push({a:1,k:"def"});render();return;}
+ askAI(`The student wants a CV version tailored to "${j.role}" at ${j.co} (${j.dir}, ${j.type}). Using their profile, write a short tailored CV summary (2 sentences) and 4 bullet lines that match this role, then list 3 keywords from this kind of vacancy they should include. Mention they can save it as a separate CV version for this job.`);}
+function aiQuick(k){if(busy)return;ensureChat();S.chat.push({k:"btn",t:k==="cv"?"improveCv":"prep"});
+ if(!AI){S.chat.push({a:1,k});go("ai");return;}
+ S.screen="ai";
+ askAI(k==="cv"?"The student tapped 'Improve my CV'. Give 3 concrete fixes for a first CV based on their program and direction (how to present MNU projects, moot courts, case competitions, clubs and volunteering as experience, with one example line), then ask them to paste their CV text or describe their experience so you can rewrite it.":"The student tapped 'Prepare for interview'. Start a mock interview for an entry-level role in their direction. In one sentence explain the format (3 questions, short feedback after each answer, use the STAR method), then ask ONLY the first question and wait.");}
+function sendAi(){if(busy)return;const v=$("#ask").value.trim();if(!v)return;S.chat.push({t:v});
+ if(AI){askAI("Respond to the student's last message. If a mock interview is in progress, give short feedback on their answer (what was good, what to improve) and ask the next question; after the third answer give an overall score out of 10 and two tips. If they pasted a CV or described their experience, rewrite it as a clean first-job CV.");return;}
+ S.chat.push({a:1,k:"def"});render();}
+function aiQuick_old(k){ensureChat();S.chat.push({k:"btn",t:k==="cv"?"improveCv":"prep"});S.chat.push({a:1,k});go("ai");}
+function sendAi_old(){const v=$("#ask").value.trim();if(!v)return;S.chat.push({t:v});S.chat.push({a:1,k:"def"});render();}
+
+/* jobs */
+function jobCard(j){const applied=S.apps.some(a=>a.jid===j.id);
+ return `<div class="card job"><div class="co"><div class="logo" style="background:${j.c}">${j.co[0]}</div><div style="flex:1"><h3>${esc(j.role)}</h3><div class="muted">${esc(j.co)}, Astana</div>${j.web?`<a class="site" href="${j.web}" target="_blank" rel="noopener">${T("site")} ↗</a>`:""}</div><span class="pill match">${matchOf(j).m}%</span></div>
+ ${matchOf(j).why.length?`<div class="why">✨ ${T("whyFits")}: ${matchOf(j).why.join(" · ")}</div>`:""}
+ <div class="sal">${j.sal} <span class="muted" style="font-weight:400">${T("perMonth")}</span></div>
+ <div class="row" style="margin-top:8px;flex-wrap:wrap"><span class="pill">${j.type==="Job"?T("job"):T("internship")}</span><span class="pill">${j.dir}</span>${j.noexp?`<span class="pill ok">${T("noExp")}</span>`:""}<span class="pill">${T("sch")[j.sch]}</span><span class="pill">${T("hrReplies")} ~${j.rt}d</span></div>
+ <div class="acts"><button class="btn sm ${applied?"ghost":""}" onclick="applySheet('${j.id}')">${applied?T("applied"):T("apply")}</button><button class="btn sm ghost" onclick="openHr('${j.id}')">${T("msgHr")}</button></div></div>`;}
+function jobs(){const f=[["All",T("all")],["Law","Law"],["Business","Business"],["Economics","Economics"],["Internship",T("internship")]];
+ let list=JOBS.filter(j=>S.jobFilter==="All"||j.dir===S.jobFilter||j.type===S.jobFilter).filter(j=>!S.fNoExp||j.noexp).filter(j=>!S.fSch||j.sch===S.fSch).filter(j=>!S.fMin||j.smin>=S.fMin);
+ list.sort(S.sort==="sal"?(a,b)=>b.smin-a.smin:(a,b)=>matchOf(b).m-matchOf(a).m);
+ const chip=(on,lbl,act)=>`<button class="${on?"on":""}" onclick="${act};render()">${lbl}</button>`;
+ return frame(topBar(T("jobsT"))+`<div class="scroll"><div class="tabs">${f.map(([k,l])=>chip(S.jobFilter===k,l,`S.jobFilter='${k}'`)).join("")}</div>
+ <div class="tabs">${chip(S.fNoExp,"✓ "+T("noExp"),"S.fNoExp=!S.fNoExp")}${["full","flex","part"].map(k=>chip(S.fSch===k,T("sch")[k],`S.fSch=S.fSch==='${k}'?null:'${k}'`)).join("")}${chip(S.fMin===250000,T("from250"),"S.fMin=S.fMin===250000?0:250000")}</div>
+ <div class="row" style="justify-content:space-between;margin:0 4px 10px"><span class="muted">${T("found")(list.length)}</span><select class="sortsel" onchange="S.sort=this.value;render()"><option value="m" ${S.sort!=="sal"?"selected":""}>${T("byMatch")}</option><option value="sal" ${S.sort==="sal"?"selected":""}>${T("bySal")}</option></select></div>
+ ${S.dir?`<div class="muted" style="margin:0 4px 10px">${esc(T("sorted")(S.dir))}</div>`:""}
+ ${list.map(jobCard).join("")||`<div class="card muted">${T("noJobs")}</div>`}</div>`+nav());}
+function applySheet(id){if(S.apps.some(a=>a.jid===id))return;const j=JOBS.find(x=>x.id===id);
+ openSheet(`<h3>${T("sendingT")}</h3><div class="muted" style="margin-bottom:12px">${esc(j.role)}, ${esc(j.co)}</div>
+ <div class="muted">${T("sendingP")}</div>
+ <div class="card" style="background:var(--chip);margin:8px 0 10px"><div style="font-weight:600">${esc(S.name)}</div><div class="muted">MNU, ${esc(S.program)} – ${T("classOf")}</div>
+ <div style="margin-top:8px"><span class="muted">${T("yourCv")}:</span> ${S.cv?"📄 "+esc(S.cv):T("genCv")}</div>
+ ${S.dir?`<div><span class="muted">${T("dirL")}:</span> ${esc(S.dir)}</div>`:""}</div>
+ ${(S.cvs||[]).length>1?`<div class="muted" style="margin-bottom:6px">${T("chooseCv")}</div><div class="opts" style="margin-bottom:10px">${S.cvs.map((c,k)=>`<button class="opt ${S.cv===c?"sel":""}" onclick="selCv(${k},'${id}')">📄 ${esc(c)}</button>`).join("")}</div>`:""}
+ <button class="btn ghost sm" style="width:100%;margin-bottom:10px" onclick="closeSheet();aiTailor('${id}')">✨ ${T("tailor")}</button>
+ <label class="filebox muted" style="margin-bottom:12px">${S.cv?T("addVersion"):T("uploadOwn")}<input type="file" accept=".pdf,.doc,.docx" style="display:none" onchange="cvUp(this,'${id}')"></label>
+ <button class="btn" onclick="doApply('${id}')">${T("confirmApply")}</button><button class="btn ghost" style="margin-top:8px" onclick="closeSheet()">${T("cancel")}</button>`);}
+function selCv(k,id){S.cv=S.cvs[k];applySheet(id);}
+function delCv(k){const c=S.cvs[k];S.cvs.splice(k,1);if(S.cv===c)S.cv=S.cvs[0]||null;render();}
+function cvUp(inp,reopen){const f=inp.files&&inp.files[0];if(!f)return;S.cv=f.name;S.cvs=S.cvs||[];if(!S.cvs.includes(f.name))S.cvs.push(f.name);toast(T("cvToast"));if(reopen)applySheet(reopen);else render();}
+function doApply(id){const j=JOBS.find(x=>x.id===id);const aid="a"+Date.now();S.apps.unshift({id:aid,jid:id,co:j.co,role:j.role,status:"Applied",date:T("today"),src:"FirstStep"});closeSheet();render();toast(T("appliedToast"));simulateHr(aid,id);}
+function notify(txt){S.notifs=S.notifs||[];S.notifs.unshift({t:txt,read:0});const sh=$("#sheet");if(!(sh&&sh.classList.contains("show")))render();else save();toast("🔔 "+txt);}
+function simulateHr(aid,jid){const j=JOBS.find(x=>x.id===jid);
+ setTimeout(()=>{const a=S.apps.find(x=>x.id===aid);if(!a||a.status!=="Applied")return;a.status="Viewed";notify(T("nViewed")(j.co));},9000);
+ setTimeout(()=>{S.hrMsgs[jid]=S.hrMsgs[jid]||[];S.hrMsgs[jid].push({a:1,t:T("hrAfterApply")});notify(T("nMsg")(j.hr));},20000);}
+function unread(){return (S.notifs||[]).filter(n=>!n.read).length;}
+
+/* HR */
+function openHr(id){S.hrJob=id;if(!S.hrMsgs[id])S.hrMsgs[id]=[];go("hr");}
+function hr(){const j=JOBS.find(x=>x.id===S.hrJob);const m=S.hrMsgs[j.id];
+ return frame(`<div class="top"><button class="back" onclick="go('jobs')" aria-label="Back">‹</button><div class="hr-head" style="flex:1"><div class="logo" style="background:${j.c};width:38px;height:38px">${j.hr[0]}</div><div><div style="font-weight:600">${esc(j.hr)}</div><div class="muted"><span class="verified">✓ ${T("verified")}</span>, ${esc(j.co)}</div><div class="muted">${T("answers")(j.rr)}, ~${j.rt}d</div>${j.web?`<a class="site" href="${j.web}" target="_blank" rel="noopener">${T("site")} ↗</a>`:""}</div></div></div>
+ <div class="scroll"><div class="chat"><div class="msg ai">${esc(T("hrHello")(j.role))}</div>
+ ${m.map(x=>x.a?`<div class="msg ai pw"${x.id?` id="${x.id}"`:""}>${x.t?esc(x.t):(x.live?'<span class="muted">'+T("typing")+'</span>':esc(T("hrReply")))}</div>`:`<div class="msg me">${esc(x.t)}</div>`).join("")}
+ ${m.length?"":`<div class="opts"><button class="opt" onclick="hrSend(T('hrQ1'))">${T("hrQ1")}</button><button class="opt" onclick="hrSend(T('hrQ2'))">${T("hrQ2")}</button></div>`}
+ <div class="note">${T("hrNote")}</div>
+ </div></div>
+ <div class="composer"><input id="hrIn" placeholder="${T("writeHr")}" onkeydown="if(event.key==='Enter')hrSend()"><button class="btn sm" onclick="hrSend()">${T("send")}</button></div>`+nav());}
+function hrSend(t){if(S.hrBusy)return;const v=t||$("#hrIn").value.trim();if(!v)return;const id=S.hrJob;const j=JOBS.find(x=>x.id===id);S.hrMsgs[id].push({t:v});
+ const msg={a:1,t:"",live:1,id:"h"+Date.now()};S.hrMsgs[id].push(msg);S.hrBusy=true;render();
+ const done=()=>{msg.live=0;S.hrBusy=false;if(S.screen==="hr"&&S.hrJob===id)render();else save();};
+ if(!AI){setTimeout(()=>{msg.t=hrFallback(v,j,id);done();},1100);return;}
+ const hist=S.hrMsgs[id].filter(x=>!x.live).slice(-12).map(x=>(x.a?"HR: ":"Candidate: ")+(x.t||T("hrReply"))).join("\n");
+ const lang=S.lang==="ru"?"Russian":"English";
+ const prompt=`You are ${j.hr}, an HR specialist at ${j.co} in Astana, Kazakhstan, chatting with a recent MNU graduate inside the FirstStep app about the "${j.role}" position (${j.type==="Job"?"full-time job":"internship"}, ${j.dir}, salary ${j.sal} per month, you usually reply within ${j.rt} days). Candidate profile: name ${S.name||"-"}, MNU program ${S.program||"-"}, has applied: ${S.apps.some(a=>a.jid===id)?"yes":"not yet"}.
+Reply like a real, friendly HR person: 1-3 short sentences, natural, specific to what the candidate just asked, never repeat a previous reply word for word. You can talk about tasks of the role, selection steps (CV review, test task, interview), schedule, what juniors learn, and what helps a graduate without experience stand out. Do not promise a job offer and do not invent exact facts about the company you cannot know; if unsure, say you will check. If it fits, suggest applying through the profile or looking at the company website ${j.web||""}. Reply in ${lang} unless the candidate writes in another language. Plain text only, no markdown.
+Chat so far:
+${hist}
+Write only your next reply as ${j.hr}.`;
+ AI(prompt,{cache:false,onText:({text})=>{msg.t=text;const el=document.getElementById(msg.id);if(el)el.textContent=text;}}).then(r=>{msg.t=(r&&r.text)||msg.t||hrFallback(v,j,id);done();}).catch(e=>{msg.t=(e&&e.text)||hrFallback(v,j,id);done();});}
+function hrFallback(v,j,id){const s=v.toLowerCase(),ru=S.lang==="ru";const n=S.hrMsgs[id].filter(x=>x.a&&!x.live).length;
+ const has=(...w)=>w.some(x=>s.includes(x));
+ if(has("опыт","experience","без опыт"))return ru?`Да, на позицию ${j.role} мы рассматриваем выпускников без опыта. Нам важнее учебные проекты, стажировки и мотивация.`:`Yes, for ${j.role} we consider graduates without experience. Projects, internships and motivation matter more to us.`;
+ if(has("отбор","этап","собесед","process","interview","selection","steps"))return ru?"Отбор в 3 шага: просмотр резюме, небольшое тестовое задание и интервью с руководителем. Обычно всё занимает 2–3 недели.":"Selection has 3 steps: CV review, a short test task and an interview with the team lead. It usually takes 2–3 weeks.";
+ if(has("зарплат","оклад","деньг","salary","pay"))return ru?`Вилка на старте — ${j.sal} в месяц, после испытательного срока пересматриваем.`:`The starting range is ${j.sal} per month, reviewed after probation.`;
+ if(has("график","удален","офис","schedule","remote","office"))return ru?"Работаем в офисе в Астане, 5/2, с 9:00 до 18:00. Иногда можно 1 день из дома.":"We work from our Astana office, 5 days a week, 9 to 6. Sometimes 1 day from home is possible.";
+ if(has("задач","обязан","что делать","tasks","duties","responsib"))return ru?"На старте — помощь команде с документами и анализом, потом свои небольшие проекты. Будет наставник.":"At first you'll support the team with documents and analysis, then get small projects of your own. You'll have a mentor.";
+ if(has("спасибо","thank"))return ru?"Пожалуйста! Будут вопросы — пишите, я на связи.":"You're welcome! Write if you have more questions.";
+ const g=ru?["Хороший вопрос! Уточню у команды и вернусь с ответом в течение пары дней.","Откликнитесь через профиль и укажите проекты в MNU – я посмотрю на этой неделе.",`Подробнее о компании можно почитать на нашем сайте, а по позиции ${j.role} спрашивайте здесь.`]:["Good question! I'll check with the team and get back to you in a couple of days.","Apply with your profile and mention your MNU projects – I'll review it this week.",`You can read more about us on our website, and ask me anything about the ${j.role} role here.`];
+ return g[n%g.length];}
+
+/* mentors */
+function mentors(){return frame(topBar(T("mentT"))+`<div class="scroll"><div class="muted" style="margin:0 4px 12px">${T("mentP")}</div>
+ <div class="card hint"><div style="font-weight:600;margin-bottom:4px">💡 ${T("howPick")}</div><div class="muted">${T("howPickP")}</div><button class="lnk" style="padding:6px 0 0" onclick="go('alumni')">🎓 ${T("alumT")} →</button></div>
+ <div class="tabs">${[["All",T("all")],["Law","Law"],["Business","Business"],["Economics","Economics"],["CV",T("cvTag")]].map(([k,l])=>`<button class="${(S.mf||"All")===k?"on":""}" onclick="S.mf='${k}';render()">${l}</button>`).join("")}</div>
+ <div class="card pro"><div style="font-weight:700;font-size:16px">FirstStep Pro ${S.pro?"✓":""}</div><div style="margin:4px 0 10px;opacity:.9">${T("proP")}</div>${S.pro?`<div style="font-weight:600">${T("proOn")}</div>`:`<button class="btn sm" style="background:#fff;color:#2B3F9E;width:100%" onclick="proSheet()">${T("proBtn")}</button>`}</div>
+ ${MENTORS.map((m,i)=>[m,i]).filter(([m])=>!S.mf||S.mf==="All"||m.dir===S.mf).map(([m,i])=>{const bk=S.booked[i];return `<div class="card"><div class="ment" onclick="mentorSheet(${i})" style="cursor:pointer"><div class="face photo" style="background:${m.g}">${m.i}<span class="dot"></span></div><div style="flex:1"><div style="font-weight:600">${m.n}</div>${m.dir===S.program?`<span class="pill ok" style="margin:2px 0">${T("fitsYou")}</span>`:""}<div class="muted">${m.t}</div><div class="muted">${m.y}</div><div class="muted">★ ${T("rating")(m.r,m.k)}</div></div><div style="text-align:right"><div style="font-weight:700">${fmt(m.price)} ₸</div><div class="muted" style="font-size:12px">${T("per30")}</div></div></div>
+ <div class="row" style="gap:8px;margin-top:12px"><button class="btn sm ghost" style="flex:1" onclick="mentorSheet(${i})">${T("profileBtn")}</button><button class="btn sm ${bk?"ghost":""}" style="flex:1" onclick="book(${i})">${bk?T("booked")+" "+bk:T("book")}</button></div></div>`}).join("")}</div>`+nav());}
+function fmt(n){return String(n).replace(/\B(?=(\d{3})+(?!\d))/g," ");}
+function mentorSheet(i){const m=MENTORS[i],L2=S.lang;
+ openSheet(`<div class="row" style="gap:14px;align-items:center;margin-bottom:12px"><div class="face photo big" style="background:${m.g}">${m.i}<span class="dot"></span></div><div><h3 style="margin:0">${m.n}</h3><div class="muted">${m.t}</div><div class="muted">${m.y}</div><div class="muted">★ ${T("rating")(m.r,m.k)}</div></div></div>
+ <div style="margin-bottom:10px">${esc(m.b[L2])}</div>
+ <div class="row" style="flex-wrap:wrap;gap:6px;margin-bottom:12px">${m.tp[L2].map(x=>`<span class="pill">${esc(x)}</span>`).join("")}</div>
+ <div class="card" style="background:var(--chip)"><div>“${esc(m.rv[L2])}”</div><div class="muted" style="margin-top:4px">– ${m.rvn}</div></div>
+ <div class="row" style="gap:8px;margin:12px 0"><button class="btn sm ghost" style="flex:1" onclick="demoLink('LinkedIn')">LinkedIn ↗</button><button class="btn sm ghost" style="flex:1" onclick="demoLink('Telegram')">Telegram ↗</button></div>
+ <button class="btn" onclick="book(${i})">${S.booked[i]?T("booked")+" "+S.booked[i]:T("book")+" · "+fmt(m.price)+" ₸"}</button><button class="btn ghost" style="margin-top:8px" onclick="closeSheet()">${T("close")}</button>`);}
+function demoLink(n){toast(T("demoLink")(n));}
+function book(i){const m=MENTORS[i];if(S.booked[i])return;
+ const opts=[["free",T("optFree"),T("optFreeP")],["paid",T("optPaid")+" · "+fmt(m.price)+" ₸",T("optPaidP")]];
+ if(S.pro)opts.unshift(["pro",T("optPro"),T("optProP")(Math.max(0,2-S.proUsed))]);
+ openSheet(`<h3>${T("bookT")(m.n.split(" ")[0])}</h3><div class="muted" style="margin-bottom:12px">${T("chooseFmt")}</div>
+ ${opts.map(([k,a,b])=>`<button class="opt fmt" ${k==="free"&&S.freeUsed?"disabled":""} ${k==="pro"&&S.proUsed>=2?"disabled":""} onclick="pickSlot(${i},'${k}')"><div style="font-weight:600">${a}</div><div class="muted" style="font-size:12.5px">${k==="free"&&S.freeUsed?T("freeUsed"):b}</div></button>`).join("")}
+ ${S.pro?"":`<div class="muted" style="margin-top:10px;font-size:13px">${T("proHint")} <a href="#" onclick="proSheet();return false">FirstStep Pro</a></div>`}
+ <button class="btn ghost" style="margin-top:14px" onclick="closeSheet()">${T("cancel")}</button>`);}
+function pickSlot(i,k){const m=MENTORS[i];const slots=["Mon 18:00","Wed 19:00","Sat 12:00"];
+ openSheet(`<h3>${T("bookT")(m.n.split(" ")[0])}</h3><div class="muted" style="margin-bottom:14px">${k==="free"?T("min15"):T("bookP")}</div><div class="opts">${slots.map(s=>`<button class="opt" onclick="${k==="paid"?`paySheet(${i},'${s}')`:`confirmBook(${i},'${s}','${k}')`}">${s}</button>`).join("")}</div><button class="btn ghost" style="margin-top:16px" onclick="book(${i})">${T("back")}</button>`);}
+function paySheet(i,s){const m=MENTORS[i];
+ openSheet(`<h3>${T("payT")}</h3><div class="muted" style="margin-bottom:12px">${m.n}, ${s}, 30 min</div>
+ <div class="card" style="background:var(--chip)"><div class="row" style="justify-content:space-between"><span>${T("callPrice")}</span><b>${fmt(m.price)} ₸</b></div><div class="muted" style="font-size:12.5px;margin-top:6px">${T("payNote")}</div></div>
+ <button class="btn" style="margin-top:12px;background:#F14635" onclick="confirmBook(${i},'${s}','paid')">Kaspi Pay · ${fmt(m.price)} ₸</button><button class="btn ghost" style="margin-top:8px" onclick="confirmBook(${i},'${s}','paid')">${T("card")}</button>
+ <div class="muted" style="text-align:center;font-size:12px;margin-top:10px">${T("demoPay")}</div>`);}
+function confirmBook(i,s,k){S.booked[i]=s;if(k==="free")S.freeUsed=1;if(k==="pro")S.proUsed=(S.proUsed||0)+1;closeSheet();render();toast(T("bookedToast")+" "+s);}
+function proSheet(){openSheet(`<h3>FirstStep Pro</h3><div class="muted" style="margin-bottom:12px">4 990 ₸ / ${T("month")}</div>
+ <div style="line-height:1.7">✓ ${T("pro1")}<br>✓ ${T("pro2")}<br>✓ ${T("pro3")}<br>✓ ${T("pro4")}</div>
+ <button class="btn" style="margin-top:14px;background:#F14635" onclick="S.pro=1;S.proUsed=0;closeSheet();render();toast(T('proToast'))">Kaspi Pay · 4 990 ₸</button><button class="btn ghost" style="margin-top:8px" onclick="closeSheet()">${T("later")}</button>
+ <div class="muted" style="text-align:center;font-size:12px;margin-top:10px">${T("demoPay")}</div>`);}
+
+/* tracker */
+function tracker(){const replies=S.apps.filter(a=>a.status!=="Applied").length;const nn=(S.notifs||[]).filter(n=>!n.read);nn.forEach(n=>n.read=1);
+ return frame(topBar(T("trkT"))+`<div class="scroll">${nn.length?`<div class="card notif"><div style="font-weight:600;margin-bottom:4px">🔔 ${T("newUpd")}</div>${nn.map(n=>`<div>${esc(n.t)}</div>`).join("")}</div>`:""}<div class="card"><div class="muted">${T("replies")}</div><div class="big">${replies} <span style="font-size:20px;color:var(--mute);font-weight:500">${T("of")} ${S.apps.length}</span></div>
+ <div class="pipe">${STS.map(s=>`<div><b>${S.apps.filter(a=>a.status===s).length}</b>${T("st")[s]}</div>`).join("")}</div></div>
+ <button class="btn" style="margin-bottom:12px" onclick="addSheet()">+ ${T("addOther")}</button>
+ <div class="card">${S.apps.length?`<div class="muted" style="margin-bottom:4px">${T("tapHint")}</div>`:""}${S.apps.map(a=>`<div class="trk" role="button" tabindex="0" onclick="statusSheet('${a.id}')"><div><div style="font-weight:600">${esc(a.role)}</div><div class="muted">${esc(a.co)}, ${esc(a.date)}<span class="src">${esc(a.src)}</span></div></div><span class="st ${a.status}">${T("st")[a.status]}</span></div>`).join("")||`<div class="muted">${T("noApps")}</div>`}</div>
+ <button class="btn ghost" onclick="go('jobs')">${T("findMore")}</button></div>`+nav());}
+function addSheet(){openSheet(`<h3>${T("addT")}</h3>
+ <label class="lbl" for="ac">${T("company")}</label><input id="ac" placeholder="Kaspi.kz" oninput="$('#ae').textContent=''">
+ <label class="lbl" for="ar">${T("role")}</label><input id="ar" placeholder="Junior Lawyer" oninput="$('#ae').textContent=''">
+ <label class="lbl" for="as">${T("source")}</label><select id="as">${SOURCES.slice(1).map(s=>`<option>${s}</option>`).join("")}</select>
+ <label class="lbl" for="at">${T("status")}</label><select id="at">${STS.map(s=>`<option value="${s}">${T("st")[s]}</option>`).join("")}</select>
+ <div class="err" id="ae"></div>
+ <button class="btn" style="margin-top:14px" onclick="addApp()">${T("save")}</button><button class="btn ghost" style="margin-top:8px" onclick="closeSheet()">${T("cancel")}</button>`);}
+function addApp(){const c=$("#ac").value.trim(),r=$("#ar").value.trim();if(!c||!r){$("#ae").textContent=T("eFill");return;}
+ S.apps.unshift({id:"a"+Date.now(),co:c,role:r,src:$("#as").value,status:$("#at").value,date:T("today")});closeSheet();render();toast(T("addedToast"));}
+function statusSheet(id){const a=S.apps.find(x=>x.id===id);
+ openSheet(`<h3>${T("changeSt")}</h3><div class="muted" style="margin-bottom:14px">${esc(a.role)}, ${esc(a.co)}</div><div class="opts">${STS.map(s=>`<button class="opt ${a.status===s?"sel":""}" onclick="setSt('${id}','${s}')">${T("st")[s]}</button>`).join("")}</div><button class="btn ghost" style="margin-top:16px" onclick="closeSheet()">${T("cancel")}</button>`);}
+function setSt(id,s){S.apps.find(x=>x.id===id).status=s;closeSheet();render();}
+
+/* profile */
+function editSheet(){openSheet(`<h3>${T("editProf")}</h3>
+ <label class="lbl" for="pn">${T("yourName")}</label><input id="pn" value="${esc(S.name)}">
+ <label class="lbl" for="pp">${T("yourProg")}</label><select id="pp">${PROGRAMS.map(p=>`<option ${S.program===p?"selected":""}>${p}</option>`).join("")}</select>
+ <label class="lbl" for="pk">${T("skills")}</label><input id="pk" value="${esc(S.skills||"")}" placeholder="${T("skillsPh")}">
+ <label class="lbl" for="pe">${T("projects")}</label><input id="pe" value="${esc(S.exp||"")}" placeholder="${T("expPh")}">
+ <label class="lbl" for="pg">${T("goalL")}</label><input id="pg" value="${esc(S.goal||"")}" placeholder="${T("goalPh")}">
+ <button class="btn" style="margin-top:14px" onclick="saveProf()">${T("save")}</button><button class="btn ghost" style="margin-top:8px" onclick="closeSheet()">${T("cancel")}</button>`);}
+function saveProf(){const n=$("#pn").value.trim();if(n)S.name=n;S.program=$("#pp").value;S.skills=$("#pk").value.trim();S.exp=$("#pe").value.trim();S.goal=$("#pg").value.trim();closeSheet();render();toast(T("savedToast"));}
+function profile(){return frame(topBar(T("profT"),"home")+`<div class="scroll"><div class="card" style="text-align:center"><div class="avatar" style="width:64px;height:64px;font-size:22px;margin:0 auto 10px">${esc(initials())}</div><div style="font-weight:600;font-size:17px">${esc(S.name)}</div><div class="muted">MNU, ${esc(S.program)} – ${T("classOf")}</div></div>
+ <div class="card"><div class="row" style="justify-content:space-between"><span class="muted">${T("language")}</span>${langSwitch(true)}</div></div>
+ <div class="card"><div style="font-weight:600;margin-bottom:6px">${T("myCvs")}</div>${(S.cvs||[]).length?S.cvs.map((c,k)=>`<div class="row" style="justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--line)"><span>📄 ${esc(c)} ${S.cv===c?`<span class="pill ok">${T("main")}</span>`:""}</span><span>${S.cv===c?"":`<button class="lnk" onclick="S.cv=S.cvs[${k}];render()">${T("makeMain")}</button>`}<button class="lnk" onclick="delCv(${k})">✕</button></span></div>`).join(""):`<div class="muted">${T("noCv")}</div>`}
+ <label class="filebox muted" style="margin-top:10px">${(S.cvs||[]).length?T("addVersion"):T("upload")}<input type="file" accept=".pdf,.doc,.docx" style="display:none" onchange="cvUp(this)"></label></div>
+ <div class="card"><div class="muted" style="margin-bottom:4px">${T("oneProf")}</div>
+ <div class="field"><span class="muted">${T("edu")}</span>Maqsut Narikbayev University, ${esc(S.program)}</div>
+ <div class="field"><span class="muted">${T("dirL")}</span>${esc(S.dir||T("notChosen"))}</div>
+ <div class="field"><span class="muted">${T("skills")}</span>${S.skills?esc(S.skills):(S.dirs?esc(T("tr")[S.dirs.t1])+", "+esc(T("tr")[S.dirs.t2])+", ":"")+"English (B2), MS Office"}</div>
+ <div class="field"><span class="muted">${T("projects")}</span>${esc(S.exp||"University case competition, student club")}</div>
+ <div class="field"><span class="muted">${T("goalL")}</span>${esc(S.goal||T("notChosen"))}</div>
+ <button class="btn ghost sm" style="width:100%;margin-top:10px" onclick="editSheet()">✏️ ${T("editProf")}</button></div>
+ <button class="btn" onclick="aiQuick('cv')">${T("improveAi")}</button><button class="btn ghost" style="margin-top:10px" onclick="S.tourDone=0;S.tour=0;go('home')">💡 ${T("showTips")}</button><button class="btn ghost" style="margin-top:10px" onclick="resetAll()">${T("reset")}</button></div>`+nav());}
+
+
+const X={en:{book:"Book a call",site:"Company website",typing:"typing…",mentP:"MNU alumni who went through the same job search. First 15-min intro call is free, then pay per call or get Pro.",
+ per30:"per 30 min",profileBtn:"Profile",close:"Close",demoLink:n=>`Demo: here will be the mentor's real ${n}`,
+ proP:"2 mentor calls a month, CV review by HR and priority replies from employers.",proBtn:"Get Pro – 4 990 ₸/month",proOn:"Pro is active – 2 calls a month included",
+ chooseFmt:"Choose a format:",optFree:"Free intro call – 15 min",optFreeP:"Once a month, get to know the mentor",freeUsed:"Already used this month",
+ optPaid:"Full call – 30 min",optPaidP:"Deep CV review, interview prep or career plan",optPro:"Pro call – 30 min",optProP:n=>`Included in Pro, ${n} left this month`,
+ proHint:"Save with",min15:"15 minutes, online. Choose a time:",back:"Back",payT:"Payment",callPrice:"Mentor call, 30 min",payNote:"80% goes to the mentor, 20% to FirstStep. Free cancellation 12 hours before.",
+ card:"Pay by card",demoPay:"Demo: no real payment is made",month:"month",pro1:"2 mentor calls of 30 min every month",pro2:"CV review by a real HR manager",pro3:"Priority: your applications are shown first",pro4:"Unlimited AI mock interviews",
+ later:"Maybe later",proToast:"FirstStep Pro is active",reset:"Start over",resetQ:"Delete your profile and progress on this device?"},
+ ru:{book:"Записаться",site:"Сайт компании",typing:"печатает…",mentP:"Выпускники MNU, которые прошли тот же поиск работы. Первый звонок-знакомство на 15 минут бесплатно, дальше – оплата за звонок или Pro.",
+ per30:"за 30 минут",profileBtn:"Профиль",close:"Закрыть",demoLink:n=>`Демо: здесь будет настоящий ${n} ментора`,
+ proP:"2 звонка с менторами в месяц, проверка резюме HR и приоритетные ответы работодателей.",proBtn:"Подключить Pro – 4 990 ₸/мес",proOn:"Pro активен – 2 звонка в месяц включены",
+ chooseFmt:"Выберите формат:",optFree:"Бесплатное знакомство – 15 минут",optFreeP:"Раз в месяц, познакомиться с ментором",freeUsed:"Уже использовано в этом месяце",
+ optPaid:"Полный звонок – 30 минут",optPaidP:"Разбор резюме, подготовка к интервью или план карьеры",optPro:"Звонок по Pro – 30 минут",optProP:n=>`Входит в Pro, осталось ${n} в этом месяце`,
+ proHint:"Выгоднее с",min15:"15 минут, онлайн. Выберите время:",back:"Назад",payT:"Оплата",callPrice:"Звонок с ментором, 30 минут",payNote:"80% получает ментор, 20% – FirstStep. Бесплатная отмена за 12 часов.",
+ card:"Оплатить картой",demoPay:"Демо: реальная оплата не проводится",month:"мес",pro1:"2 звонка с менторами по 30 минут каждый месяц",pro2:"Проверка резюме настоящим HR-менеджером",pro3:"Приоритет: ваши отклики показываются первыми",pro4:"Безлимитные пробные интервью с ИИ",
+ later:"Позже",proToast:"FirstStep Pro подключён",reset:"Начать заново",resetQ:"Удалить профиль и прогресс на этом устройстве?"}};
+Object.assign(L.en,X.en);Object.assign(L.ru,X.ru);
+const X2={en:{noExp:"No experience",sch:{full:"Full-time",flex:"Flexible",part:"Part-time"},from250:"From 250 000 ₸",found:n=>`${n} jobs found`,byMatch:"By match",bySal:"By salary",noJobs:"No jobs match these filters. Try removing one.",
+ chooseCv:"Which CV to send:",tailor:"Tailor my CV to this job with AI",addVersion:"Add another CV version",tailorMsg:(r,c)=>`Tailor my CV for ${r} at ${c}`,
+ nViewed:c=>`${c} viewed your application`,nMsg:n=>`${n} sent you a message`,hrAfterApply:"Thanks for applying! I've got your CV and will get back to you about the next step by the end of the week.",newUpd:"New updates",
+ myCvs:"My CV versions",main:"main",makeMain:"Make main",goalL:"Career goal",editProf:"Edit profile",skillsPh:"Excel, English B2, public speaking",expPh:"Moot court, case championship, volunteering",goalPh:"Internship in a law firm",savedToast:"Profile saved",
+ howPick:"How to choose a mentor",howPickP:"Pick someone from your program or the industry you want. Not sure? Start with a free 15-min intro call. For CV and LinkedIn help, choose an HR mentor.",cvTag:"CV & LinkedIn",fitsYou:"Fits your program"},
+ ru:{noExp:"Без опыта",sch:{full:"Полный день",flex:"Гибкий график",part:"Частичная занятость"},from250:"От 250 000 ₸",found:n=>`Найдено вакансий: ${n}`,byMatch:"По совпадению",bySal:"По зарплате",noJobs:"Нет вакансий с такими фильтрами. Уберите один из них.",
+ chooseCv:"Какое резюме отправить:",tailor:"Адаптировать резюме под вакансию с ИИ",addVersion:"Добавить другую версию резюме",tailorMsg:(r,c)=>`Адаптируй моё резюме под ${r} в ${c}`,
+ nViewed:c=>`${c} просмотрел ваш отклик`,nMsg:n=>`${n} написал(а) вам`,hrAfterApply:"Спасибо за отклик! Резюме получила, вернусь с ответом по следующему этапу до конца недели.",newUpd:"Новые обновления",
+ myCvs:"Мои версии резюме",main:"основное",makeMain:"Сделать основным",goalL:"Карьерная цель",editProf:"Редактировать профиль",skillsPh:"Excel, английский B2, публичные выступления",expPh:"Муткорт, кейс-чемпионат, волонтёрство",goalPh:"Стажировка в юрфирме",savedToast:"Профиль сохранён",
+ howPick:"Как выбрать ментора",howPickP:"Выбирайте выпускника вашей программы или нужной сферы. Не уверены? Начните с бесплатного звонка на 15 минут. Для резюме и LinkedIn подойдёт HR-ментор.",cvTag:"Резюме и LinkedIn",fitsYou:"Ваша программа"}};
+Object.assign(L.en,X2.en);Object.assign(L.ru,X2.ru);
+
+S.booked=S.booked||{};S.freeUsed=0;S.pro=0;S.proUsed=0;S.hrBusy=false;
+const X3={en:{whyFits:"Why it fits",wProg:d=>`your program (${d})`,wQuiz:t=>`your quiz: ${t}`,wSkills:"your skills",wGoal:"your goal",wNoExp:"no experience needed",
+ tour:[["🧭","Start with the quiz","Answer 6 questions on the home screen and AI will suggest 3 career directions. Jobs are then sorted by how well they fit you."],["📱","Use the menu below","AI – CV help and mock interview. Jobs – filters and chat with HR. Mentors – calls with MNU alumni."],["🔔","Track everything","Tracker shows your application statuses and HR notifications. Fill in your profile – it makes AI advice and job matches more accurate."]],
+ skip:"Skip",next:"Next",gotIt:"Got it",showTips:"Show tips again",
+ alumT:"Where MNU graduates work",alumTeaser:"Real career paths and first employers",alumP:"Career paths of MNU graduates: from student activities to their first job.",months:"months",timeToJob:"average time to first job",viaIntern:"got their first job through an internship",whereWork:"Where graduates work",paths:"Career paths",talkTo:n=>`Book a call with ${n}`,demoData:"Prototype demo data"},
+ ru:{whyFits:"Почему подходит",wProg:d=>`ваша программа (${d})`,wQuiz:t=>`ваш тест: ${t}`,wSkills:"ваши навыки",wGoal:"ваша цель",wNoExp:"не нужен опыт",
+ tour:[["🧭","Начните с теста","Ответьте на 6 вопросов на главной, и ИИ предложит 3 направления. После этого вакансии сортируются по тому, насколько они вам подходят."],["📱","Нижнее меню","ИИ – помощь с резюме и пробное интервью. Вакансии – фильтры и чат с HR. Менторы – звонки с выпускниками MNU."],["🔔","Всё под контролем","В трекере – статусы откликов и уведомления от HR. Заполните профиль: так советы ИИ и подбор вакансий станут точнее."]],
+ skip:"Пропустить",next:"Далее",gotIt:"Понятно",showTips:"Показать подсказки снова",
+ alumT:"Где работают выпускники MNU",alumTeaser:"Реальные карьерные пути и первые работодатели",alumP:"Карьерные пути выпускников MNU: от студенческой активности до первой работы.",months:"мес.",timeToJob:"в среднем до первой работы",viaIntern:"нашли первую работу через стажировку",whereWork:"Где работают выпускники",paths:"Карьерные пути",talkTo:n=>`Записаться к ментору (${n})`,demoData:"Демо-данные прототипа"}};
+Object.assign(L.en,X3.en);Object.assign(L.ru,X3.ru);
+const KEY="fs_state_v1";
+function save(){try{const c=JSON.parse(JSON.stringify(S));c.hrBusy=false;c.chat=(c.chat||[]).filter(m=>!m.live);Object.keys(c.hrMsgs||{}).forEach(k=>{c.hrMsgs[k]=c.hrMsgs[k].filter(m=>!m.live)});localStorage.setItem(KEY,JSON.stringify(c));}catch(e){}}
+function load(){try{const v=localStorage.getItem(KEY);if(!v)return;const o=JSON.parse(v);if(o&&typeof o==="object"){Object.assign(S,o);S.quizOn=false;S.hrBusy=false;S.booked=S.booked||{};if(!S.name)S.screen="welcome";if(S.screen==="hr"&&!S.hrJob)S.screen="home";}}catch(e){}}
+function resetAll(){if(!confirm(T("resetQ")))return;try{localStorage.removeItem(KEY)}catch(e){}location.reload();}
+load();
+
+/* smart match */
+const DIRKW={Law:["law","legal","moot","contract","court","юрид","прав","муткорт","договор","суд"],Business:["marketing","project","management","sales","smm","case","маркет","проект","менедж","продаж","кейс"],Economics:["excel","finance","financial","data","sql","statistic","эконом","финанс","аналит","статист"],Other:["hr","people","communication","recruit","коммуник","персонал"]};
+const JTR={j1:"W",j2:"A",j3:"N",j4:"A",j5:"P",j6:"A",j7:"P",j8:"P",j9:"N"};
+const JKW={j1:["english","writing","contract","договор","англ"],j2:["excel","sql","analysis","data","анализ","it"],j3:["excel","finance","finans","финанс"],j4:["english","compliance","regulation","англ"],j5:["project","organiz","event","проект","организ","мероприят"],j6:["research","statistic","excel","исслед","статист"],j7:["people","communication","hr","люд","коммуник"],j8:["smm","marketing","content","canva","маркет","контент"],j9:["excel","audit","accounting","аудит","бух"]};
+function matchOf(j){const why=[];let m=45;const ru=S.lang==="ru";
+ if(j.dir===S.program){m+=22;why.push(T("wProg")(j.dir));}else if(j.dir==="Other"||S.program==="Other")m+=8;
+ if(S.dirs){if(JTR[j.id]===S.dirs.t1){m+=14;why.push(T("wQuiz")(T("tr")[S.dirs.t1]));}else if(JTR[j.id]===S.dirs.t2){m+=7;why.push(T("wQuiz")(T("tr")[S.dirs.t2]));}}
+ const txt=((S.skills||"")+" "+(S.exp||"")).toLowerCase();
+ if(txt.trim()){const hits=[...new Set([...(JKW[j.id]||[]),...(DIRKW[j.dir]||[])].filter(k=>txt.includes(k)))];if(hits.length){m+=Math.min(12,hits.length*5);why.push(T("wSkills"));}}
+ const g=(S.goal||"").toLowerCase();
+ if(g&&((j.type==="Internship"&&/(intern|стаж)/.test(g))||j.role.toLowerCase().split(" ").some(w=>w.length>3&&g.includes(w))||(DIRKW[j.dir]||[]).some(k=>g.includes(k)))){m+=6;why.push(T("wGoal"));}
+ if(j.noexp&&!(S.exp||"").trim()){m+=5;why.push(T("wNoExp"));}
+ return {m:Math.max(35,Math.min(97,m)),why:why.slice(0,3)};}
+
+/* onboarding tour */
+function tourHtml(){if(S.tourDone)return "";const k=S.tour||0;const st=T("tour")[k];
+ return `<div class="tour-bg"><div class="tour"><div class="muted" style="font-size:12.5px">${k+1} / 3</div><div style="font-size:30px;margin:6px 0">${st[0]}</div><div style="font-weight:700;font-size:17px;margin-bottom:6px">${st[1]}</div><div class="muted" style="margin-bottom:16px">${st[2]}</div>
+ <div class="row" style="gap:8px">${k<2?`<button class="btn ghost sm" style="flex:1" onclick="S.tourDone=1;render()">${T("skip")}</button><button class="btn sm" style="flex:1" onclick="S.tour=${k+1};render()">${T("next")}</button>`:`<button class="btn sm" style="flex:1" onclick="S.tourDone=1;S.tour=0;render()">${T("gotIt")}</button>`}</div></div></div>`;}
+
+/* alumni */
+const ALUM=[
+ {n:"Arman K.",p:"Law",y:2021,path:{en:["Moot court team","Intern at a law firm","Associate"],ru:["Команда муткорта","Стажёр в юрфирме","Associate"]},tip:{en:"Write about moot courts in your CV like real work: cases, roles, results.",ru:"Пишите про муткорты в резюме как про реальную работу: дела, роль, результат."},mi:0},
+ {n:"Saule T.",p:"Business",y:2022,path:{en:["Case championships","Intern at Astana Hub","Business Analyst"],ru:["Кейс-чемпионаты","Стажёр в Astana Hub","Бизнес-аналитик"]},tip:{en:"Learn basic Excel and SQL before applying to IT companies.",ru:"Освойте базовые Excel и SQL до откликов в IT-компании."},mi:1},
+ {n:"Yerlan M.",p:"Economics",y:2020,path:{en:["Research assistant","Bank trainee","Financial Analyst"],ru:["Ассистент в исследовании","Стажёр в банке","Финансовый аналитик"]},tip:{en:"Banks test Excel – practise financial tasks in advance.",ru:"Банки проверяют Excel – заранее потренируйтесь на финансовых задачах."},mi:2},
+ {n:"Aruzhan B.",p:"Other",y:2019,path:{en:["Student council","HR intern","HR Manager"],ru:["Студсовет","HR-стажёр","HR-менеджер"]},tip:{en:"Student activities count as experience if you show results.",ru:"Студенческая активность считается опытом, если показать результат."},mi:3},
+ {n:"Dana S.",p:"Law",y:2024,path:{en:["Legal clinic volunteer","Compliance intern","Compliance Specialist"],ru:["Волонтёр юрклиники","Стажёр по комплаенсу","Комплаенс-специалист"]},tip:{en:"English is a big plus for compliance roles.",ru:"Английский – большой плюс для комплаенса."},mi:-1},
+ {n:"Miras A.",p:"Economics",y:2024,path:{en:["Excel course","Audit trainee","Junior Auditor"],ru:["Курс по Excel","Стажёр в аудите","Младший аудитор"]},tip:{en:"Apply to trainee programs in autumn – that's when most open.",ru:"Подавайтесь на стажёрские программы осенью – большинство открывается тогда."},mi:-1}];
+const ALUMCO={Law:["GRATA International","AIFC","Law firms in Astana","Courts and state bodies"],Business:["Astana Hub","Kaspi.kz","Beeline Kazakhstan","Startups"],Economics:["Halyk Bank","KPMG Kazakhstan","Samruk-Kazyna","Ministries"],Other:["Freedom Holding","HR agencies","Universities","NGOs"]};
+const ALUMRU={"Law firms in Astana":"Юрфирмы Астаны","Courts and state bodies":"Суды и госорганы","Startups":"Стартапы","Ministries":"Министерства","HR agencies":"HR-агентства","Universities":"Университеты","NGOs":"НКО"};
+function alumni(){const f=S.af||(PROGRAMS.includes(S.program)?S.program:"All");const L2=S.lang;
+ const list=ALUM.filter(a=>f==="All"||a.p===f);
+ const stats={Law:["4–6","62%"],Business:["3–5","68%"],Economics:["3–6","65%"],Other:["4–7","55%"],All:["3–6","64%"]}[f]||["3–6","64%"];
+ return frame(topBar(T("alumT"),"home")+`<div class="scroll"><div class="muted" style="margin:0 4px 12px">${T("alumP")}</div>
+ <div class="tabs">${["All","Law","Business","Economics","Other"].map(k=>`<button class="${f===k?"on":""}" onclick="S.af='${k}';render()">${k==="All"?T("all"):k}</button>`).join("")}</div>
+ <div class="grid2"><div class="tile"><b>${stats[0]} ${T("months")}</b><span class="muted">${T("timeToJob")}</span></div><div class="tile"><b>${stats[1]}</b><span class="muted">${T("viaIntern")}</span></div></div>
+ ${f!=="All"?`<div class="card"><div style="font-weight:600;margin-bottom:6px">${T("whereWork")}</div><div class="row" style="flex-wrap:wrap;gap:6px">${ALUMCO[f].map(c=>`<span class="pill">${esc(S.lang==="ru"&&ALUMRU[c]||c)}</span>`).join("")}</div></div>`:""}
+ <div class="h2">${T("paths")}</div>
+ ${list.map(a=>`<div class="card"><div style="font-weight:600">${a.n} <span class="muted" style="font-weight:400">· MNU ${a.p==="Other"?"":a.p+" "}${a.y}</span></div>
+ <div class="path">${a.path[L2].map((s,i)=>`<span class="step ${i===a.path[L2].length-1?"last":""}">${esc(s)}</span>`).join('<span class="arr">→</span>')}</div>
+ <div class="muted">💡 ${esc(a.tip[L2])}</div>${a.mi>=0?`<button class="lnk" style="padding:8px 0 0" onclick="go('mentors');mentorSheet(${a.mi})">${T("talkTo")(a.n.split(" ")[0])} →</button>`:""}</div>`).join("")}
+ <div class="muted" style="font-size:12px;text-align:center;margin:6px 0 12px">${T("demoData")}</div></div>`+nav());}
+
+function render(){const v={welcome,home,ai,jobs,hr,mentors,tracker,profile,alumni}[S.screen];$("#app").innerHTML=v();save();document.documentElement.lang=S.lang;
+ const sc=document.querySelector(".scroll");if(sc&&(S.screen==="ai"||S.screen==="hr"))sc.scrollTop=sc.scrollHeight;}
+try{const l=localStorage.getItem("fs_lang");if(l==="en"||l==="ru")S.lang=l}catch(e){}
+render();
+</script>
+
+</body>
+</html>
